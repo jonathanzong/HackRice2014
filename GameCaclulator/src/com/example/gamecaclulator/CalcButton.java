@@ -34,6 +34,10 @@ public class CalcButton extends RelativeLayout{
 		setText(text);
 	}
 	
+	public boolean isActivated(){
+		return activated;
+	}
+	
 	public void setActivated(boolean act){
 		activated = act;
 		if(activated)
@@ -66,6 +70,10 @@ public class CalcButton extends RelativeLayout{
 	
 	public void setText(String s){
 		tv.setText(s);
+	}
+	
+	public String getText(){
+		return tv.getText().toString();
 	}
 	
 }
