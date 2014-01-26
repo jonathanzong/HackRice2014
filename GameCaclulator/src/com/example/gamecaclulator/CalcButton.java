@@ -11,33 +11,46 @@ public class CalcButton extends RelativeLayout{
 
 	private Context context;
 	private TextView tv;
-	public boolean activated;
+	private ImageView outline, shade;
+	public LayoutParams params;
+	private boolean activated;
 	
 	public CalcButton(Context c) {
 		super(c);
 		context = c;
 		setupGUI();
-		activated = false;
+		setActivated(false);
 	}
 	
 	public CalcButton(Context c, AttributeSet attrs) {
 		super(c, attrs);
-		
 		context = c;
 		setupGUI();
-		activated = false;
+		setActivated(false);
 	}
 	
 	public CalcButton(Context c, String text) {
 		this(c);
 		setText(text);
 	}
+	
+	public void setActivated(boolean act){
+		activated = act;
+		if(activated)
+			shade.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+		else 
+			shade.setBackground(context.getResources().getDrawable(R.drawable.outline_disactive));
+		tv.setTextColor(getResources().getColor(
+				activated ? android.R.color.background_dark
+						: android.R.color.darker_gray));
+	}
 
 	private void setupGUI(){
-		ImageView outline = new ImageView(context);
+		outline = new ImageView(context);
+		outline.setId(R.id.outline);
 		outline.setBackground(context.getResources().getDrawable(R.drawable.outline));
 		addView(outline, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		setBackgroundColor(getResources().getColor(android.R.color.background_light));
+		setBackgroundColor(context.getResources().getColor(android.R.color.background_light));
 		
 		tv = new TextView(context);
 		LayoutParams ptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -46,6 +59,9 @@ public class CalcButton extends RelativeLayout{
 		tv.setTextSize(40);
 		tv.setTextColor(getResources().getColor(android.R.color.background_dark));
 		addView(tv, ptv);
+		
+		shade = new ImageView(context);
+		addView(shade, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
 	
 	public void setText(String s){
